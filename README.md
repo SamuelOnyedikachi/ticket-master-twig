@@ -4,6 +4,10 @@ This repository contains the Twig version of the Multi-Framework Ticket Web App.
 
 The application is fully responsive, features a dark/light mode, and provides a seamless user experience for managing support tickets.
 
+## ✍️ Author
+
+- **Samuel Onyedikachi**
+
 ## ✨ Core Features
 
 - **Modern Landing Page**: A visually appealing hero section with a wavy SVG background and decorative elements.
