@@ -1,0 +1,15 @@
+{% extends "_layout.twig" %}
+{% block title %}Trash · TicketMaster{% endblock %}
+
+{% block content %}
+<div class="container py-8">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-3xl font-bold">Trash</h2>
+    <button id="emptyTrashBtn" class="btn-outline">Empty Trash</button>
+  </div>
+
+  <div id="deletedTicketsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Deleted tickets will be rendered here by JavaScript -->
+  </div>
+</div>
+{% endblock %}

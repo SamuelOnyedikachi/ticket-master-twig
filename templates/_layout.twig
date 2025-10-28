@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}TicketMaster{% endblock %}</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="assets/app.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class', // This is the crucial part
+      theme: { extend: {} }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 dark:bg-black text-gray-800 dark:text-gray-300 min-h-screen flex flex-col font-sans">
+
+  <header class="site-header sticky top-0 w-full z-50 bg-white dark:bg-black dark:border-b dark:border-gray-800">
+    <div class="container flex items-center justify-between h-16">
+      <!-- Logo link changes based on auth status -->
+      <a href="?page=landing" class="logo text-2xl font-bold text-indigo-600 dark:text-indigo-400" data-guard="guest-only" style="display: none;">TicketMaster</a>
+      <a href="?page=dashboard" class="logo text-2xl font-bold text-indigo-600 dark:text-indigo-400" data-guard="auth-only" style="display: none;">TicketMaster</a>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden">
+        <button id="mobileMenuBtn" class="p-2 rounded-md text-gray-500 hover:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
+          <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+      <!-- Desktop Menu -->
+      <nav id="desktopMenu" class="hidden md:flex items-center gap-4">
+        <a href="?page=dashboard" class="nav-link transition-colors duration-200" data-guard="auth-only" style="display: none;">Dashboard</a>
+        <a href="?page=tickets" class="nav-link transition-colors duration-200" data-guard="auth-only" style="display: none;">Tickets</a>
+        <a href="?page=trash" class="nav-link transition-colors duration-200" data-guard="auth-only" style="display: none;">Trash</a>
+        <a href="?page=login" class="nav-link transition-colors duration-200" data-guard="guest-only" style="display: none;">Login</a>
+        <a href="?page=signup" class="btn transition-transform hover:scale-105" data-guard="guest-only" style="display: none;">Get Started</a>
+        <button id="logoutBtn" class="btn-secondary transition-transform hover:scale-105" data-guard="auth-only" style="display: none;">Logout</button>
+        <button id="darkModeToggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700" aria-label="Toggle dark mode">
+          <svg id="sunIcon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+          <svg id="moonIcon" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+        </button>
+      </nav>
+    </div>
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobileMenu" class="hidden md:hidden">
+      <nav class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="?page=dashboard" class="mobile-nav-link hover:bg-gray-100 dark:hover:bg-gray-800" data-guard="auth-only" style="display: none;">Dashboard</a>
+        <a href="?page=tickets" class="mobile-nav-link hover:bg-gray-100 dark:hover:bg-gray-800" data-guard="auth-only" style="display: none;">Tickets</a>
+        <a href="?page=trash" class="mobile-nav-link hover:bg-gray-100 dark:hover:bg-gray-800" data-guard="auth-only" style="display: none;">Trash</a>
+        <a href="?page=login" class="mobile-nav-link hover:bg-gray-100 dark:hover:bg-gray-800" data-guard="guest-only" style="display: none;">Login</a>
+        <a href="?page=signup" class="mobile-nav-link hover:bg-gray-100 dark:hover:bg-gray-800" data-guard="guest-only" style="display: none;">Get Started</a>
+        <button id="mobileLogoutBtn" class="w-full text-left mobile-nav-link hover:bg-gray-100 dark:hover:bg-gray-800" data-guard="auth-only" style="display: none;">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer mt-auto bg-gray-50 dark:bg-black">
+    <div class="container">
+      <p>&copy; {{ "now"|date("Y") }} TicketMaster. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div id="toast" class="fixed bottom-5 right-5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 py-3 px-5 rounded-lg shadow-xl opacity-0 translate-y-4 transition-all duration-300">
+    Toast message
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Confirmation Modal -->
+  <div id="confirmModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-sm m-4 transform transition-all opacity-0 scale-95">
+      <h3 id="confirmModalTitle" class="text-lg font-semibold mb-2">Confirm Action</h3>
+      <p id="confirmModalBody" class="text-gray-600 dark:text-gray-300 mb-6">Are you sure?</p>
+      <div class="flex justify-end gap-4">
+        <button id="confirmModalCancel" class="btn-secondary">Cancel</button>
+        <button id="confirmModalConfirm" class="btn bg-red-600 hover:bg-red-700">Confirm</button>
+      </div>
+    </div>
+  </div>
+  <script src="assets/app.js"></script>
+</body>
+</html>

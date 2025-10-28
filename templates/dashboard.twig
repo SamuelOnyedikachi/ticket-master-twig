@@ -1,0 +1,67 @@
+{% extends "_layout.twig" %}
+{% block title %}Dashboard · TicketMaster{% endblock %}
+
+{% block content %}
+<div class="container py-8">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-3xl font-bold">Dashboard</h2>
+    <p id="userLine" class="text-gray-500 dark:text-gray-400"></p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- KPIs -->
+    <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div class="card p-6 flex items-center gap-4 border-l-4 border-blue-500">
+        <div class="bg-blue-100 dark:bg-blue-900/50 p-3 rounded-full"><svg class="w-6 h-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg></div>
+        <div>
+          <div class="font-medium text-gray-500 dark:text-gray-400">Active Tickets</div>
+          <div id="kpiTotal" class="text-3xl font-bold text-gray-800 dark:text-gray-200">0</div>
+        </div>
+      </div>
+      <div class="card p-6 flex items-center gap-4 border-l-4 border-green-500">
+        <div class="bg-green-100 dark:bg-green-900/50 p-3 rounded-full"><svg class="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+        <div>
+          <div class="font-medium text-gray-500 dark:text-gray-400">Open Tickets</div>
+          <div id="kpiOpen" class="text-3xl font-bold text-gray-800 dark:text-gray-200">0</div>
+        </div>
+      </div>
+      <div class="card p-6 flex items-center gap-4 border-l-4 border-orange-500">
+        <div class="bg-orange-100 dark:bg-orange-900/50 p-3 rounded-full"><svg class="w-6 h-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+        <div>
+          <div class="font-medium text-gray-500 dark:text-gray-400">In Progress</div>
+          <div id="kpiInProgress" class="text-3xl font-bold text-gray-800 dark:text-gray-200">0</div>
+        </div>
+      </div>
+      <div class="card p-6 flex items-center gap-4 border-l-4 border-gray-500">
+        <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-full"><svg class="w-6 h-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+        <div>
+          <div class="font-medium text-gray-500 dark:text-gray-400">Resolved Tickets</div>
+          <div id="kpiClosed" class="text-3xl font-bold text-gray-800 dark:text-gray-200">0</div>
+        </div>
+      </div>
+      <div class="card p-6 flex items-center gap-4 border-l-4 border-red-500 sm:col-span-2">
+        <div class="bg-red-100 dark:bg-red-900/50 p-3 rounded-full"><svg class="w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></div>
+        <div>
+          <div class="font-medium text-gray-500 dark:text-gray-400">Tickets in Trash</div>
+          <div id="kpiDeleted" class="text-3xl font-bold text-gray-800 dark:text-gray-200">0</div>
+        </div>
+      </div>
+    </div>
+    <!-- Chart -->
+    <div class="card p-6 flex flex-col items-center justify-center">
+      <h3 class="text-xl font-semibold mb-4">Ticket Status Overview</h3>
+      <canvas id="ticketChart" class="max-w-full max-h-80"></canvas>
+    </div>
+  </div>
+
+  <div class="mt-12">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-semibold">Recent Tickets</h3>
+      <a href="?page=tickets" class="btn-secondary">View All Tickets</a>
+    </div>
+    <div id="recentTicketsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Recent tickets will be rendered here by JavaScript -->
+    </div>
+  </div>
+</div>
+{% endblock %}

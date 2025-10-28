@@ -1,0 +1,47 @@
+{% extends "_layout.twig" %}
+{% block title %}Manage Tickets · TicketMaster{% endblock %}
+
+{% block content %}
+<div class="container py-8">
+  <h2 class="text-3xl font-bold mb-6">Ticket Management</h2>
+
+  <div class="card p-6 mb-8">
+    <h3 id="formTitle" class="text-xl font-semibold mb-6 text-gray-900 dark:text-white">Create Ticket</h3>
+    <form id="ticketForm" class="space-y-4">
+      <input type="hidden" name="id">
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <label for="title" class="block text-gray-700 dark:text-gray-300 font-medium mb-1">Title</label>
+          <input type="text" name="title" id="title" required maxlength="100" placeholder="e.g., Server is down" class="w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+          <small class="text-red-500 text-sm mt-1" data-error-for="title"></small>
+        </div>
+        <div>
+          <label for="status" class="block text-gray-700 dark:text-gray-300 font-medium mb-1">Status</label>
+          <select name="status" id="status" required class="w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+            <option value="open">Open</option>
+            <option value="in_progress">In Progress</option>
+            <option value="closed">Closed</option>
+          </select>
+          <small class="text-red-500 text-sm mt-1" data-error-for="status"></small>
+        </div>
+      </div>
+      <div>
+        <label for="description" class="block text-gray-700 dark:text-gray-300 font-medium mb-1">Description (Optional)</label>
+        <textarea name="description" id="description" rows="3" maxlength="500" placeholder="Add more details..." class="w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"></textarea>
+        <small class="text-red-500 text-sm mt-1" data-error-for="description"></small>
+      </div>
+      <div class="flex gap-4 pt-2">
+        <button type="submit" class="btn transition-transform hover:scale-105">Save Ticket</button>
+        <button type="button" id="resetFormBtn" class="btn-secondary transition-transform hover:scale-105">Cancel Edit</button>
+      </div>
+    </form>
+  </div>
+
+  <div>
+    <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Existing Tickets</h3>
+    <div id="ticketsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Tickets will be rendered here by JavaScript -->
+    </div>
+  </div>
+</div>
+{% endblock %}

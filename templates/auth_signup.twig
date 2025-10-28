@@ -1,0 +1,47 @@
+{% extends "_layout.twig" %}
+{% block title %}Sign Up · TicketMaster{% endblock %}
+
+{% block content %}
+<section class="flex justify-center items-center min-h-[80vh]">
+  <div class="w-full max-w-md bg-white dark:bg-black dark:border dark:border-gray-800 shadow-lg rounded-2xl p-8">
+    <h2 class="text-2xl font-bold text-center text-indigo-600 mb-6">Create your Account</h2>
+
+    <form id="signupForm" class="space-y-5">
+      <!-- Email -->
+      <div>
+        <label class="block text-gray-700 dark:text-gray-300 font-medium mb-1">Email</label>
+        <input
+          type="email"
+          name="email"
+          required
+          placeholder="you@example.com"
+          class="w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+        />
+        <small class="text-red-500 text-sm hidden" data-error-for="email"></small>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="block text-gray-700 dark:text-gray-300 font-medium mb-1">Password</label>
+        <input
+          type="password"
+          name="password"
+          required
+          minlength="6"
+          placeholder="At least 6 characters"
+          class="w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+        />
+        <small class="text-red-500 text-sm hidden" data-error-for="password"></small>
+      </div>
+
+      <!-- Submit Button -->
+      <button class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-2 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5" type="submit">
+        Sign Up
+      </button>
+
+      <!-- Link to Login -->
+      <p class="text-center text-gray-500 dark:text-gray-400 mt-4">Already have an account? <a href="?page=login" class="text-indigo-600 hover:underline">Login</a>.</p>
+    </form>
+  </div>
+</section>
+{% endblock %}
