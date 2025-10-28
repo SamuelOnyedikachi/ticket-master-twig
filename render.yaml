@@ -5,3 +5,9 @@ services:
     plan: free
     buildCommand: ""
     startCommand: "php -S 0.0.0.0:$PORT -t public"
+services:
+  - type: web
+    name: ticket-master-twig
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
